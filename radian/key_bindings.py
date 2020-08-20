@@ -288,8 +288,11 @@ def create_prompt_key_bindings(prase_text_complete):
         # todo: allow partial prase complete
         if should_eval and prase_text_complete(data):
             data = data.rstrip("\n")
+            old_buffer = event.current_buffer
+            event.current_buffer.reset()
             event.current_buffer.insert_text(data)
             event.current_buffer.validate_and_handle()
+            event.current_buffer = old_buffer
         else:
             event.current_buffer.insert_text(data)
 
